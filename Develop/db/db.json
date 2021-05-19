@@ -1,29 +1,37 @@
 {
-    "tasks":[
+  "tasks": [
     {
-        "title":"Test 1",
-        "text":"Test text 2",
-        "personalityTraits": [
-            "hungry"
-          ]
+      "id": "0",
+      "title": "Test 1",
+      "text": "Test text 2",
+      "personalityTraits": [
+        "hungry"
+      ]
+    },
+    {
+      "id": "1",
+      "title": "Test 2",
+      "text": "Test text 2",
+      "personalityTraits": [
+        "madlad",
+        "goober"
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Test 2",
+      "text": "Test text 2",
+      "personalityTraits": [
+        "goo"
+      ]
+    },
+    {
+      "title": "hello",
+      "text": "line2",
+      "personalityTraits": [
+        "pissed off"
+      ],
+      "id": "3"
     }
-    ,
-    {
-        "title":"Test 2",
-        "text":"Test text 2",
-        "personalityTraits": [
-            "madlad",
-            "goober"
-          ]
-    }   
-    ,
-    {
-        "title":"Test 2",
-        "text":"Test text 2",
-        "personalityTraits": [
-            "goo"
-          ]
-    }
-]
-
+  ]
 }
