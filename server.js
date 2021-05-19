@@ -1,5 +1,7 @@
 const {tasks} = require('./Develop/db/db.json');
 const express = require('express');
+//must use env for heroku
+const PORT = process.env.PORT || 3001;
 //instatiate the server
 const app = express();
 //connecting to the database
@@ -39,7 +41,8 @@ function filterByQuery(query, tasks){
           // of the traits when the .forEach() loop is finished.
           
           filteredResults = filteredResults.filter(
-            tasks => tasks.personalityTraits.indexOf(trait) !== -1
+            tasks =>console.log(tasks.personalityTraits.indexOf(trait)) !== -1,
+            
             
           );
         });
@@ -66,6 +69,6 @@ app.get('/api/tasks', (req, res) => {
 
 
 
-app.listen(3001, () => {
-console.log(`API server on 3001`)
+app.listen(PORT, () => {
+console.log(`API server on port ${PORT}`);
 });

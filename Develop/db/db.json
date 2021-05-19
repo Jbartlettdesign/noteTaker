@@ -4,9 +4,7 @@
         "title":"Test 1",
         "text":"Test text 2",
         "personalityTraits": [
-            "hungry",
-            "zany",
-            "loving"
+            "hungry"
           ]
     }
     ,
@@ -14,7 +12,16 @@
         "title":"Test 2",
         "text":"Test text 2",
         "personalityTraits": [
-            "madlad"
+            "madlad",
+            "goober"
+          ]
+    }   
+    ,
+    {
+        "title":"Test 2",
+        "text":"Test text 2",
+        "personalityTraits": [
+            "goo"
           ]
     }
 ]
