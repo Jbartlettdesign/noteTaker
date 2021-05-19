@@ -17,7 +17,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
- 
+//this ensure the public folder with css and java is used
+app.use(express.static('public'));
 /**********************************************************/
 
 //validation 
@@ -118,6 +119,7 @@ app.get('/api/tasks/:id', (req, res) => {
         res.send(404);
     }
     });
+/********************************************************/
 //post
 app.post('/api/tasks', (req, res) => {
  // req.body is where our incoming content will be
@@ -134,7 +136,28 @@ const task = createNewTasks(req.body, tasks);
 }
 
 });
-
+/********************************************************/
+//sending us to the homepage at index!!!!!!
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+    //turn back on for challenge.
+    //res.sendFile(path.join(__dirname, './Develop/public/index.html'));
+})
+/****************************************************************/
+app.get('/tasks', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/animals.html'));
+    //res.sendFile(path.join(__dirname, './Develop/public/notes.html'))
+})
+/***************************************************************/
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/zookeepers.html'));
+  });
+  
+/*************************************************************/
+/***********put * last */
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+})
 app.listen(PORT, () => {
 console.log(`API server on port ${PORT}`);
 });
