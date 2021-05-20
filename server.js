@@ -139,25 +139,68 @@ const task = createNewTasks(req.body, tasks);
 /********************************************************/
 //sending us to the homepage at index!!!!!!
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
+    //res.sendFile(path.join(__dirname, './public/index.html'));
     //turn back on for challenge.
-    //res.sendFile(path.join(__dirname, './Develop/public/index.html'));
+    res.sendFile(path.join(__dirname, './Develop/public/index.html'));
 })
 /****************************************************************/
 app.get('/tasks', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/animals.html'));
-    //res.sendFile(path.join(__dirname, './Develop/public/notes.html'))
+    //res.sendFile(path.join(__dirname, './public/animals.html'));
+    res.sendFile(path.join(__dirname, './Develop/public/notes.html'))
 })
 /***************************************************************/
-app.get('/zookeepers', (req, res) => {
+/*app.get('/zookeepers', (req, res) => {
     res.sendFile(path.join(__dirname, './public/zookeepers.html'));
   });
   
 /*************************************************************/
 /***********put * last */
-app.get('*', (req, res) => {
+/*app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
-})
+});*/
 app.listen(PORT, () => {
 console.log(`API server on port ${PORT}`);
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+const apiRoutes = require('./routes/apiRoutes');
+const htmlRoutes = require('./routes/htmlRoutes');
+app.use('/api', apiRoutes);
+app.use('/', htmlRoutes);
+//we need fs to overwrite the json file
+//const fs = require('fs');
+//const path = require('path');
+const {tasks} = require('./Develop/db/db.json');
+const express = require('express');
+const e = require('express');
+//must use env for heroku
+const PORT = process.env.PORT || 3001;
+//instatiate the server
+const app = express();
+//connecting to the database
+
+//middleware
+// parse incoming string or array data to post body to database!!!It takes incoming POST data and converts it to key/value. extended means array data nested in it as well
+app.use(express.urlencoded({ extended: true }));
+// parse incoming JSON data
+app.use(express.json());
+//this ensure the public folder with css and java is used
+app.use(express.static('public'));
+ 
+
+*/
