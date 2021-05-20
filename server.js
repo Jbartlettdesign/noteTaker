@@ -17,8 +17,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
-//this ensure the public folder with css and java is used
-app.use(express.static('public'));
+//this ensure the Develop folder with css and java is used
+app.use(express.static('Develop'));
 /**********************************************************/
 
 //validation 
@@ -141,12 +141,12 @@ const task = createNewTasks(req.body, tasks);
 app.get('/', (req, res) => {
     //res.sendFile(path.join(__dirname, './public/index.html'));
     //turn back on for challenge.
-    res.sendFile(path.join(__dirname, './Develop/public/index.html'));
+    res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
 })
 /****************************************************************/
-app.get('/tasks', (req, res) => {
+app.get('/notes', (req, res) => {
     //res.sendFile(path.join(__dirname, './public/animals.html'));
-    res.sendFile(path.join(__dirname, './Develop/public/notes.html'))
+    res.sendFile(path.join(__dirname, './Develop/public/index.html'))
 })
 /***************************************************************/
 /*app.get('/zookeepers', (req, res) => {
