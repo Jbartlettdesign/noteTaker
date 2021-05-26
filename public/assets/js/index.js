@@ -40,8 +40,21 @@ const saveNote = (note) =>
     headers: {
       'Content-Type': 'application/json',
     },
+    
     body: JSON.stringify(note),
-  });
+  }).then(response => {
+    console.log(response);
+  })
+  /*.then(response => {
+    if (response.ok) {
+      return response.json();
+    }
+    alert('Error: ' + response.statusText);
+  })
+  .then(postResponse => {
+    console.log(postResponse);
+    alert('Thank you for adding a note!');
+  })*/;
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -72,6 +85,7 @@ const handleNoteSave = () => {
     title: noteTitle.value,
     text: noteText.value,
   };
+  console.log(newNote);
   saveNote(newNote).then(() => {
     getAndRenderNotes();
     renderActiveNote();
@@ -84,7 +98,9 @@ const handleNoteDelete = (e) => {
   e.stopPropagation();
 
   const note = e.target;
+  console.log(e.target);
   const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
+  console.log(noteId);
 
   if (activeNote.id === noteId) {
     activeNote = {};
@@ -181,4 +197,4 @@ if (window.location.pathname === '/notes') {
   noteText.addEventListener('keyup', handleRenderSaveBtn);
 }
 
-//getAndRenderNotes();
+getAndRenderNotes();

@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 /**************************************************/
-const {tasks} = require('./Develop/db/db.json');
+const {tasks} = require('./db/db.json');
 const express = require('express');
 const e = require('express');
 //must use env for heroku
@@ -18,15 +18,18 @@ app.use(express.urlencoded({ extended: true }));
 // parse incoming JSON data
 app.use(express.json());
 //this ensure the Develop folder with css and java is used
-app.use(express.static('Develop'));
+app.use(express.static('public'));
 /**********************************************************/
 
 //validation 
 function validateTasks(task) {
-if(!task.title || typeof task.name !== 'string'){
+if(!task.title || typeof task.title !== 'string'){
+    console.log(typeof task.title);
     return false;
+
 }
 if(!task.text || typeof task.text !== 'string'){
+    console.log(typeof task.text);
     return false;
 }
 return true;
@@ -36,7 +39,7 @@ function filterByQuery(query, tasks){
 
     let filteredResults = tasks;
     
-    if (query.personalityTraits) {
+    /*if (query.personalityTraits) {
         // Save personalityTraits as a dedicated array.
         // If personalityTraits is a string, place it into a new array and save.
         if (typeof query.personalityTraits === 'string') {
@@ -67,7 +70,7 @@ function filterByQuery(query, tasks){
             
           );
         });
-      }
+      }*/
     
     if(query.title){
         filteredResults.filter(tasks => tasks.title === query.title)
@@ -86,7 +89,7 @@ function createNewTasks(body, tasksArray){
 tasksArray.push(task);  
 //overwriting original tasks json file
 fs.writeFileSync(
-    path.join(__dirname, './Develop/db/db.json'),
+    path.join(__dirname, './db/db.json'),
     //we need to save the JavaScript array data as JSON, so we use JSON.stringify
     //()The null argument means we don't want to edit any of our existing data; 
     //if we did, we could pass something in there. The 2 indicates we want to create white 
@@ -99,7 +102,7 @@ fs.writeFileSync(
 
 
 //res is the param//go to http://localhost:3001/api/tasks
-app.get('/api/tasks', (req, res) => {
+app.get('/api/notes', (req, res) => {
     
     let results = tasks;
     console.log(req.query);
@@ -111,7 +114,7 @@ app.get('/api/tasks', (req, res) => {
     res.json(results);
 });
 //params must come after the other get route. this search is singular in search, id
-app.get('/api/tasks/:id', (req, res) => {
+app.get('/api/notes/:id', (req, res) => {
     const result = findById(req.params.id, tasks);
     if(result){ res.json(result);
     }
@@ -121,10 +124,12 @@ app.get('/api/tasks/:id', (req, res) => {
     });
 /********************************************************/
 //post
-app.post('/api/tasks', (req, res) => {
+app.post('/api/notes', (req, res) => {
+    console.log(req.body);
  // req.body is where our incoming content will be
- //console.log(req.body);
+ console.log(req.body);
   // set id based on what the next index of the array will be
+  
 req.body.id = tasks.length.toString();
 
 if(!validateTasks(req.body)){
@@ -136,17 +141,27 @@ const task = createNewTasks(req.body, tasks);
 }
 
 });
+///delete
+app.delete('/api/notes/:id', (req, res) => {
+    const result = findById(req.params.id, tasks);
+    if (result !== -1) {
+        tasks.splice(result, 1);
+        res.status(204).send();
+      } else {
+        res.status(404).send();
+      }
+});
 /********************************************************/
 //sending us to the homepage at index!!!!!!
-app.get('/', (req, res) => {
+app.get('/notes', (req, res) => {
     //res.sendFile(path.join(__dirname, './public/index.html'));
     //turn back on for challenge.
-    res.sendFile(path.join(__dirname, './Develop/public/notes.html'));
+    res.sendFile(path.join(__dirname, './public/notes.html'));
 })
 /****************************************************************/
-app.get('/notes', (req, res) => {
+app.get('/', (req, res) => {
     //res.sendFile(path.join(__dirname, './public/animals.html'));
-    res.sendFile(path.join(__dirname, './Develop/public/index.html'))
+    res.sendFile(path.join(__dirname, './public/index.html'))
 })
 /***************************************************************/
 /*app.get('/zookeepers', (req, res) => {
